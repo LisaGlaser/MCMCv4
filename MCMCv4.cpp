@@ -278,12 +278,9 @@ int MChain(programParams iniV)
 int main(int argc, char *argv[])
 {
 	// Some variables I will be using during the main loop
-
-
 	programParams parameters;
 
-/// The first thing I do is initialize my program. For that I read a bunch of things from an input file
-
+  // The first thing I do is initialize my program. For that I read a bunch of things from an input file
 	// the programm expects the argument to be an input file
 		if(argc==1)
 		{
