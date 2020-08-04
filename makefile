@@ -2,7 +2,7 @@
 # the compiler to use.
 CC=g++
 # I'm using CFlags for compiler options, and just assume that LDFLAGS works for libraries to include. I might be abusing it here
-CFLAGS=-c
+CFLAGS= -c -IEigen/Eigen3.24 -g3 -std=c++11 -Wno-ignored-attributes -Wno-deprecated-declarations -IEigen/Eigen3.24 
 # LDFLAGS= -I /usr/local/include/eigen3
 LDFLAGS= -I eigen-3.2.4
 
