@@ -44,8 +44,7 @@ programParams::programParams()
     strcpy(finfile, "default_finalmatrix.txt");
 }
 
-int
-programParams::initialize(char * filename)
+int programParams::initialize(char * filename)
 {
     FILE * fin;
     int j, iniI = 0, buf;
@@ -62,7 +61,6 @@ programParams::initialize(char * filename)
         printf("Sorry but your input file does not exist");
         return 1;
     }
-
 
     // while there are more lines we keep going
     while (j != -1) {
@@ -152,15 +150,14 @@ programParams::initialize(char * filename)
     return 0;
 } // programParams::initialize
 
-void
-programParams::announce()
+void programParams::announce()
 {
     std::cout << "You are simulating a " << matrixsize << "x" << matrixsize << " matrix" << std::endl;
-    std::cout << "Of type (p,q)=pq " << Type << " " << std::endl;
+    std::cout << "of type (p,q)=pq " << Type << " " << std::endl;
     std::cout << "There will be " << stepnumber << " sweeps of " << matrixsize * 4 << " attempted MC moves"
               << std::endl;
-    std::cout << "The  D^2 coupling is  " << gD2 << "The  (Tr(D^2)^2 coupling is  " << gD22
-              << "and the D^4 coupling is  " << gD4 << std::endl;
+    std::cout << "The D^2 coupling is " << gD2 << ", the (Tr(D^2)^2 coupling is " << gD22
+              << " and the D^4 coupling is " << gD4 << std::endl;
     if (measure == 0) {
         std::cout << "You are measuring set 0, that means only the action, kind of obsolete see action_monitor.txt"
                   << std::endl;
@@ -172,7 +169,7 @@ programParams::announce()
         std::cout << "You are measuring set 3, that means all elements of D" << std::endl;
     }
     if (wmoveA == 0.) std::cout << " The additive move distance will be determined dynamically" << std::endl;
-    else std::cout << "And a additive move distance of " << wmoveA << std::endl;
+    else std::cout << "And additive move distance of " << wmoveA << std::endl;
 
     std::cout << "And the resulting data will be gathered in " << outfile << std::endl;
 }

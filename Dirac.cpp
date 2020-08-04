@@ -28,8 +28,7 @@ Dirac::Dirac(programParams iniV)
 }
 
 // Defines a function that sets the dimension of the Clifford module for each of the Clifford Types currently available.
-int
-Dirac::getdimgamma()
+int Dirac::getdimgamma()
 {
     int dg;
 
@@ -60,8 +59,7 @@ Dirac::getdimgamma()
 }
 
 // A function that initialises vital variables
-void
-Dirac::initial(int ini, char * inifile)
+void Dirac::initial(int ini, char * inifile)
 {
     Eigen::MatrixXcd mtemp(size, size);
 
@@ -105,6 +103,7 @@ Dirac::initial(int ini, char * inifile)
         L3   = I * mtemp;
         H0   = mtemp;
     }
+
     /*
      * Paul: I've commented this out, because it causes errors to do with the file scan, something about not being able to
      * take the address of a rvalue. It might be something to do with .real and .imag, as they aren't assignable, so might not have an address? Unsure.
@@ -189,8 +188,7 @@ Dirac::initial(int ini, char * inifile)
     }
 } // Dirac::initial
 
-void
-Dirac::printD(FILE * file)
+void Dirac::printD(FILE * file)
 {
     for (int i = 0; i < truesize; i++) {
         for (int j = 0; j < truesize; j++) {
@@ -201,8 +199,7 @@ Dirac::printD(FILE * file)
     fprintf(file, "\n");
 }
 
-void
-Dirac::printAll(char * file)
+void Dirac::printAll(char * file)
 {
     FILE * eF;
 
@@ -236,8 +233,7 @@ Dirac::printAll(char * file)
     fclose(eF);
 }
 
-double
-Dirac::getS()
+double Dirac::getS()
 {
     if (moved == 1) {
         if (type == 01) {
@@ -268,8 +264,7 @@ Dirac::getS()
     return S;
 }
 
-double
-Dirac::action()
+double Dirac::action()
 {
     std::complex<double> S2, S4;
     double S;
@@ -297,8 +292,7 @@ Dirac::action()
     return S;
 }
 
-void
-Dirac::moveA(double pA)
+void Dirac::moveA(double pA)
 {
     int hermitian;
     Eigen::MatrixXcd temp;
@@ -354,8 +348,7 @@ Dirac::moveA(double pA)
     }
 } // Dirac::moveA
 
-void
-Dirac::moveT(double pA)
+void Dirac::moveT(double pA)
 {
     Eigen::MatrixXcd temp;
 
@@ -374,8 +367,7 @@ int seed = (int) time(0); // random seed
 StochasticLib1 sto(seed); // make instance of random library
 
 
-int
-moveA_raw(Eigen::MatrixXcd &M, int her, double p, int s)
+int moveA_raw(Eigen::MatrixXcd &M, int her, double p, int s)
 {
     Eigen::MatrixXcd diff(s, s);
 
@@ -387,8 +379,7 @@ moveA_raw(Eigen::MatrixXcd &M, int her, double p, int s)
     return 0;
 }
 
-int
-moveT_raw(Eigen::MatrixXcd &M, double p, int s)
+int moveT_raw(Eigen::MatrixXcd &M, double p, int s)
 {
     Eigen::MatrixXcd diff(s, s);
 
@@ -400,22 +391,19 @@ moveT_raw(Eigen::MatrixXcd &M, double p, int s)
     return 0;
 }
 
-void
-Dirac::makeD10()
+void Dirac::makeD10()
 {
     D = acom(H0);
 }
 
-void
-Dirac::makeD01()
+void Dirac::makeD01()
 {
     D = com(H0);
 }
 
 // A small routine to caluclate the Dirac operator
 // implicit assumptions are that L23,L13,L12,H0 have the same size and that they are squared
-void
-Dirac::makeD130()
+void Dirac::makeD130()
 {
     Eigen::MatrixXcd g0, g1, g2, g3;
 
@@ -429,8 +417,7 @@ Dirac::makeD130()
 
 // A small routine to calculate the general Dirac operator
 // implicit assumptions are that L23,L13,L12,H0 have the same size and that they are squared
-void
-Dirac::makeD13()
+void Dirac::makeD13()
 {
     Eigen::MatrixXcd g0, g1, g2, g3;
 
@@ -445,8 +432,7 @@ Dirac::makeD13()
       + tens(g0, acom(H0)) + tens(g1, com(L1)) + tens(g2, com(L2)) + tens(g3, com(L3));
 }
 
-void
-Dirac::makeD20()
+void Dirac::makeD20()
 {
     Eigen::MatrixXcd g1, g2;
 
@@ -456,8 +442,7 @@ Dirac::makeD20()
     D = tens(g1, acom(H0)) + tens(g2, acom(H123));
 }
 
-void
-Dirac::makeD11()
+void Dirac::makeD11()
 {
     Eigen::MatrixXcd g1, g2;
 
@@ -467,8 +452,7 @@ Dirac::makeD11()
     D = tens(g1, acom(H0)) + tens(g2, com(L1));
 }
 
-void
-Dirac::makeD02()
+void Dirac::makeD02()
 {
     Eigen::MatrixXcd g1, g2;
 
@@ -478,8 +462,7 @@ Dirac::makeD02()
     D = tens(g1, com(L1)) + tens(g2, com(L2));
 }
 
-void
-Dirac::makeD03()
+void Dirac::makeD03()
 {
     Eigen::MatrixXcd g1, g2, g3;
 
@@ -494,8 +477,7 @@ Dirac::makeD03()
     D = tens(ident, acom(H0)) + tens(g1, com(L1)) + tens(g2, com(L2)) + tens(g3, com(L3));
 }
 
-void
-Dirac::makeD031()
+void Dirac::makeD031()
 {
     Eigen::MatrixXcd g1, g2, g3;
 
@@ -506,8 +488,7 @@ Dirac::makeD031()
     D = tens(g1, com(L1)) + tens(g2, com(L2)) + tens(g3, com(L3));
 }
 
-void
-Dirac::makeD()
+void Dirac::makeD()
 {
     if (type == 13) {
         makeD13();
@@ -532,8 +513,7 @@ Dirac::makeD()
     }
 }
 
-double
-Dirac::action130()
+double Dirac::action130()
 {
     std::complex<double> S2, S4;
 
@@ -562,8 +542,7 @@ Dirac::action130()
     return S;
 }
 
-double
-Dirac::action13()
+double Dirac::action13()
 {
     std::complex<double> S2, S4;
 
@@ -1675,8 +1654,7 @@ Dirac::action13()
     return S;
 } // Dirac::action13
 
-double
-Dirac::action10()
+double Dirac::action10()
 {
     std::complex<double> S2, S4;
 
@@ -1710,8 +1688,7 @@ Dirac::action10()
     return S;
 }
 
-double
-Dirac::action01()
+double Dirac::action01()
 {
     std::complex<double> S2, S4;
 
@@ -1745,8 +1722,7 @@ Dirac::action01()
     return S;
 }
 
-double
-Dirac::action20()
+double Dirac::action20()
 {
     std::complex<double> S2, S4;
 
@@ -1798,8 +1774,7 @@ Dirac::action20()
     return S;
 } // Dirac::action20
 
-double
-Dirac::action11()
+double Dirac::action11()
 {
     std::complex<double> S2, S4;
 
@@ -1853,8 +1828,7 @@ Dirac::action11()
     return S;
 } // Dirac::action11
 
-double
-Dirac::action02()
+double Dirac::action02()
 {
     std::complex<double> S2, S4;
 
@@ -1906,8 +1880,7 @@ Dirac::action02()
     return S;
 } // Dirac::action02
 
-double
-Dirac::action03()
+double Dirac::action03()
 {
     std::complex<double> S2, S4;
 
@@ -2070,8 +2043,7 @@ Dirac::action03()
     return S;
 } // Dirac::action03
 
-double
-Dirac::action031()
+double Dirac::action031()
 {
     std::complex<double> S2, S4;
 
