@@ -72,11 +72,14 @@ using namespace std;
 
 TRandomCombined<CRandomMersenne, CRandomMother> RanGen(time(NULL));
 
+// This defined the function es() to be globally available function. It is used in measure() only though?
 SelfAdjointEigenSolver<MatrixXcd> es;
 
-
-int
-measure(FILE * outfile, programParams iniV, Dirac D)
+// This function is called by the MChain function below.
+// Depending on the parameter measure (contained iniV), it either:
+// 		(i) measures the eigenvalues and writes them to the outfile
+//    (ii) prints out the Dirac operator
+int measure(FILE * outfile, programParams iniV, Dirac D)
 {
     // Now what do I want to measure?
     // First ideas S, Tr(D) and the traces of the m
@@ -92,9 +95,9 @@ measure(FILE * outfile, programParams iniV, Dirac D)
         // SelfAdjointEigenSolver<MatrixXcd> es(D); is called above and globally available
         VectorXd eivals;
 
+        // es is defined globally at the beginning of this file.
         es.compute(D.D, false); // computes the eigenvalues, false tells it not to compute the eigenvectors
         eivals = es.eigenvalues();
-
 
         for (int i = 0; i < D.truesize; i++) {
             fprintf(outfile, " %10g ", eivals(i));
@@ -111,9 +114,11 @@ measure(FILE * outfile, programParams iniV, Dirac D)
     return 0;
 } // measure
 
-int
-MChain(programParams iniV)
+// Markov Chain Monte Carlo method that is called by the main function.
+// Takes in the parameters defined in the input file.
+int MChain(programParams iniV)
 {
+    // Unsure what is going on here
     Dirac Dtemp(iniV);
     Dirac D(iniV);
     int sweep, k, i = 0, tempering, ttemp, pretemp = 1;
@@ -121,25 +126,21 @@ MChain(programParams iniV)
 
     Dtemp = D;
 
-
     // and everything I need for a simple recording function
     char * filename;
     FILE * actionF;
     FILE * measureF;
 
-    filename = (char *) calloc(30, sizeof(char));
-    strcpy(filename, "action_monitor.txt");
-
-    actionF  = fopen(filename, "w");
-    measureF = fopen(iniV.outfile, "w");
-
+    // Create a file to store the action values in
+    filename = (char *) calloc(30, sizeof(char)); // reserve memory for name of file
+    strcpy(filename, "action_monitor.txt");       // defines the file name
+    actionF  = fopen(filename, "w");              // open the file to save the action values
+    measureF = fopen(iniV.outfile, "w");          // open the output file that stores...
 
     sweep = iniV.matrixsize * 4; // only measure the observables after 1 sweep, which I define to be the size of the matrix
     //	while(k*sweep<=500){k+=1.;}
-    k = 1000;
-
+    k       = 1000;
     weightA = iniV.wmoveA;
-
 
     if (weightA == 0.) {
         tempering = 1; // at first we want to temper
@@ -214,8 +215,7 @@ MChain(programParams iniV)
     return 0;
 } // MChain
 
-int
-main(int argc, char * argv[])
+int main(int argc, char * argv[])
 {
     // Some variables I will be using during the main loop
     programParams parameters;
@@ -228,11 +228,11 @@ main(int argc, char * argv[])
     } else {
         // A function to initialize everything
         parameters.initialize(argv[1]);
-
+        // Print out the setup that is running.
         parameters.announce();
+        // Initialise the random number generator?
         srand(time(NULL));
-
-
+        // Run the MCMC for this setup
         MChain(parameters);
 
         return 0;

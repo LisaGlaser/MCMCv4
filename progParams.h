@@ -16,10 +16,8 @@ class programParams
 {
 public:
     programParams();
-    int
-    initialize(char * filename);
-    void
-    announce();
+    int initialize(char * filename);
+    void announce();
 
     int matrixsize;
     int stepnumber;
