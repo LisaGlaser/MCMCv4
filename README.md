@@ -8,7 +8,7 @@ This code relies on two external libaries.
 - The code also requires a random number generator which I used from here class https://www.agner.org/random/
 
 
-# Pauls Guide on how to get this to work.
+# Installation and Basic User Guide
 
 First steps, what version of the compilers/packages do we need?
   - We need to install Eigen. The version **I think** this code was written using is  version 3.2.4. To install this visit the website: https://eigen.tuxfamily.org/ and following the instruction there. At the time of writing this (August 2020) you can get version 3.2.4 from https://gitlab.com/libeigen/eigen/-/releases/3.2.4  
