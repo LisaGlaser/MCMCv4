@@ -1,0 +1,10 @@
+matrixsize 5
+Type 02
+steps 100
+outputfile outfile.txt
+initialconfig 5
+measurement  2
+couplingD4 0
+couplingD2 1
+couplingD22  0
+finalmatrixfile lastmatrix.txt
