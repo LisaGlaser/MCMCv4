@@ -8,34 +8,32 @@
 #include <cstring>
 #include <math.h>
 
-#define DEBUG 0 
- 
+#define DEBUG 0
+
 // This is the content of the .h file, which is where the declarations go
 
 class programParams
 {
-	
 public:
-	programParams();
-	int initialize(char *filename);
-	void announce();
-	
-	int matrixsize;
-	int stepnumber;
-	char *finfile;
-	char *outfile;
-	int initialconfig;
-	int measure;
-	char *inifile;
-	double gD2;
-	double gD22;
-	double gD4;
-	double wmoveA;
-	int Type;
-	int moveT;
+    programParams();
+    int initialize(char * filename);
+    void announce();
 
+    int matrixsize;
+    int stepnumber;
+    char * finfile;
+    char * outfile;
+    int initialconfig;
+    int measure;
+    char * inifile;
+    double gD2;
+    double gD22;
+    double gD4;
+    double wmoveA;
+    int Type;
+    int moveT;
 };
 
- 
+
 // This is the end of the header guard
-#endif
+#endif // ifndef __PROGPARAMS_H__
